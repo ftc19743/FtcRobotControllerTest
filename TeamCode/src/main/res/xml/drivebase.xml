@@ -13,9 +13,9 @@
 
         </LynxModule>
         <LynxModule name="Control Hub" port="173">
-            <goBILDA5202SeriesMotor name="flmAndLeftForwardEncoder" port="0" />
-            <goBILDA5202SeriesMotor name="frmAndRightForwardEncoder" port="1" />
-            <goBILDA5202SeriesMotor name="blmAndStrafeEncoder" port="2" />
+            <goBILDA5202SeriesMotor name="flmAndRightForwardEncoder" port="0" />
+            <goBILDA5202SeriesMotor name="blmAndLeftForwardEncoder" port="1" />
+            <goBILDA5202SeriesMotor name="frmAndStrafeEncoder" port="2" />
             <goBILDA5202SeriesMotor name="brm" port="3" />
             <LynxEmbeddedIMU name="imu" port="0" bus="0" />
         </LynxModule>
