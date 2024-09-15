@@ -67,7 +67,6 @@ import java.util.List;
  *   below the name of the Limelight on the top level configuration screen.
  */
 @TeleOp(name = "Sensor: Limelight3A", group = "Sensor")
-@Disabled
 public class Limelight3ATest extends LinearOpMode {
 
     private Limelight3A limelight;
@@ -75,7 +74,7 @@ public class Limelight3ATest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException
     {
-        limelight = hardwareMap.get(Limelight3A.class, "limelight");
+        limelight = hardwareMap.get(Limelight3A.class, "limelighttest.xml");
 
         telemetry.setMsTransmissionInterval(11);
 
