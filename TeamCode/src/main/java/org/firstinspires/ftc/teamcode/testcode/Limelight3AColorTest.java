@@ -39,6 +39,7 @@ import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 
@@ -79,7 +80,7 @@ public class Limelight3AColorTest extends LinearOpMode {
         telemetry.setMsTransmissionInterval(11);
 
         limelight.pipelineSwitch(0);
-
+        int pipelineIndex = 0;
         /*
          * Starts polling for data.  If you neglect to call start(), getLatestResult() will return null.
          */
@@ -98,6 +99,15 @@ public class Limelight3AColorTest extends LinearOpMode {
             telemetry.addData("Pipeline", "Index: %d, Type: %s",
                     status.getPipelineIndex(), status.getPipelineType());
 
+            if (gamepad1.dpad_up){
+                pipelineIndex+=1;
+                if(pipelineIndex>2){
+                    pipelineIndex = 0;
+                }
+                limelight.pipelineSwitch(pipelineIndex);
+                telemetry.addLine("Current Index: "+ pipelineIndex);
+            }
+
             LLResult result = limelight.getLatestResult();
             if (result != null) {
                 // Access general information
@@ -105,11 +115,15 @@ public class Limelight3AColorTest extends LinearOpMode {
                 double captureLatency = result.getCaptureLatency();
                 double targetingLatency = result.getTargetingLatency();
                 double parseLatency = result.getParseLatency();
+                /*
                 telemetry.addData("LL Latency", captureLatency + targetingLatency);
                 telemetry.addData("Parse Latency", parseLatency);
                 telemetry.addData("PythonOutput", java.util.Arrays.toString(result.getPythonOutput()));
 
+                 */
+
                 if (result.isValid()) {
+                    /*
                     telemetry.addData("tx", result.getTx());
                     telemetry.addData("txnc", result.getTxNC());
                     telemetry.addData("ty", result.getTy());
@@ -117,11 +131,32 @@ public class Limelight3AColorTest extends LinearOpMode {
 
                     telemetry.addData("Botpose", botpose.toString());
 
+                     */
+
                     // Access color results
                     List<LLResultTypes.ColorResult> colorResults = result.getColorResults();
+                    int colorAmount=0;
+                    int currentObject = 1;
+
                     for (LLResultTypes.ColorResult cr : colorResults) {
-                        telemetry.addData("Color", "X: %.2f, Y: %.2f", cr.getTargetXDegrees(), cr.getTargetYDegrees());
+                        RobotLog.d("19743LOG:T" + " Current Object: " + currentObject);
+
+                        //telemetry.addData("Color", "X: %.2f, Y: %.2f", cr.getTargetXDegrees(), cr.getTargetYDegrees());
+                        RobotLog.d("19743LOG:T" + " X " + cr.getTargetXDegrees() + " Y " + cr.getTargetYDegrees());
+
+                        //telemetry.addData("Area", "%.2f", cr.getTargetArea());
+                        RobotLog.d("19743LOG:T" + " Area " + cr.getTargetArea());
+
+                        //telemetry.addData("Corners", cr.getTargetCorners());
+                        RobotLog.d("19743LOG:T" + " Corners " + cr.getTargetCorners());
+                        colorAmount+=1;
+                        currentObject+=1;
+
                     }
+                    RobotLog.d("19743LOG:T" + " Color Amount " + colorAmount);
+                    telemetry.addLine("Object Amount: " + colorAmount);
+
+
 
                 }
             } else {
